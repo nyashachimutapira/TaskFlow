@@ -1,10 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const session = require('express-session');
+const passport = require('passport');
 const swaggerUi = require('swagger-ui-express');
 const rateLimit = require('express-rate-limit');
 
 const connectDB = require('./config/database');
+require('./config/passport');
 const errorHandler = require('./middleware/errorHandler');
 const swaggerSpec = require('./swagger');
 
@@ -24,6 +27,21 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Session middleware for OAuth
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'taskflow-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
+  },
+}));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // CORS
 app.use(cors({

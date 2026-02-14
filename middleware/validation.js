@@ -56,11 +56,43 @@ const validateCommentCreate = [
     .withMessage('Comment cannot be empty'),
 ];
 
+const validateProjectUpdate = [
+  body('name')
+    .optional()
+    .trim()
+    .isLength({ min: 3 })
+    .withMessage('Project name must be at least 3 characters'),
+  body('description').optional().trim(),
+];
+
+const validateTaskUpdate = [
+  body('title')
+    .optional()
+    .trim()
+    .isLength({ min: 3 })
+    .withMessage('Task title must be at least 3 characters'),
+  body('description').optional().trim(),
+  body('priority')
+    .optional()
+    .isIn(['low', 'medium', 'high'])
+    .withMessage('Priority must be low, medium, or high'),
+];
+
+const validateCommentUpdate = [
+  body('content')
+    .trim()
+    .notEmpty()
+    .withMessage('Comment cannot be empty'),
+];
+
 module.exports = {
   validateInput,
   validateRegister,
   validateLogin,
   validateProjectCreate,
+  validateProjectUpdate,
   validateTaskCreate,
+  validateTaskUpdate,
   validateCommentCreate,
+  validateCommentUpdate,
 };

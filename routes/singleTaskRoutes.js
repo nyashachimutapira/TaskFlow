@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const taskController = require('../controllers/taskController');
 const authMiddleware = require('../middleware/authMiddleware');
+const { validateTaskUpdate, validateInput } = require('../middleware/validation');
 
 /**
  * @swagger
@@ -56,7 +57,13 @@ router.get('/:taskId', authMiddleware, taskController.getTaskById);
  *       200:
  *         description: Task updated
  */
-router.put('/:taskId', authMiddleware, taskController.updateTask);
+router.put(
+  '/:taskId',
+  authMiddleware,
+  validateTaskUpdate,
+  validateInput,
+  taskController.updateTask
+);
 
 /**
  * @swagger

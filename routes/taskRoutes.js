@@ -4,6 +4,7 @@ const taskController = require('../controllers/taskController');
 const authMiddleware = require('../middleware/authMiddleware');
 const {
   validateTaskCreate,
+  validateTaskUpdate,
   validateInput,
 } = require('../middleware/validation');
 

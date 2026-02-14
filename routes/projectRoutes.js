@@ -4,6 +4,7 @@ const projectController = require('../controllers/projectController');
 const authMiddleware = require('../middleware/authMiddleware');
 const {
   validateProjectCreate,
+  validateProjectUpdate,
   validateInput,
 } = require('../middleware/validation');
 
@@ -101,7 +102,13 @@ router.get('/:projectId', authMiddleware, projectController.getProjectById);
  *       200:
  *         description: Project updated
  */
-router.put('/:projectId', authMiddleware, projectController.updateProject);
+router.put(
+  '/:projectId',
+  authMiddleware,
+  validateProjectUpdate,
+  validateInput,
+  projectController.updateProject
+);
 
 /**
  * @swagger

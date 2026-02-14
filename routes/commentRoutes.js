@@ -4,6 +4,7 @@ const commentController = require('../controllers/commentController');
 const authMiddleware = require('../middleware/authMiddleware');
 const {
   validateCommentCreate,
+  validateCommentUpdate,
   validateInput,
 } = require('../middleware/validation');
 
@@ -89,7 +90,13 @@ router.get('/:taskId/comments', authMiddleware, commentController.getCommentsByT
  *       200:
  *         description: Comment updated
  */
-router.put('/comments/:commentId', authMiddleware, commentController.updateComment);
+router.put(
+  '/comments/:commentId',
+  authMiddleware,
+  validateCommentUpdate,
+  validateInput,
+  commentController.updateComment
+);
 
 /**
  * @swagger
