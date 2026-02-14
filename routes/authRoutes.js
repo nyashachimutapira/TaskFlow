@@ -116,7 +116,12 @@ router.put(
  *       302:
  *         description: Redirects to Google login
  */
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', (req, res, next) => {
+  if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+    return res.status(503).json({ message: 'Google OAuth is not configured on this server' });
+  }
+  passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next);
+});
 
 /**
  * @swagger
@@ -130,7 +135,12 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
  */
 router.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res, next) => {
+    if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+      return res.status(503).json({ message: 'Google OAuth is not configured on this server' });
+    }
+    passport.authenticate('google', { failureRedirect: '/login' })(req, res, next);
+  },
   (req, res) => {
     const token = req.user.token;
     const user = req.user.user;
@@ -148,7 +158,12 @@ router.get(
  *       302:
  *         description: Redirects to GitHub login
  */
-router.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
+router.get('/github', (req, res, next) => {
+  if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
+    return res.status(503).json({ message: 'GitHub OAuth is not configured on this server' });
+  }
+  passport.authenticate('github', { scope: ['user:email'] })(req, res, next);
+});
 
 /**
  * @swagger
@@ -162,7 +177,12 @@ router.get('/github', passport.authenticate('github', { scope: ['user:email'] })
  */
 router.get(
   '/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
+  (req, res, next) => {
+    if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
+      return res.status(503).json({ message: 'GitHub OAuth is not configured on this server' });
+    }
+    passport.authenticate('github', { failureRedirect: '/login' })(req, res, next);
+  },
   (req, res) => {
     const token = req.user.token;
     const user = req.user.user;
