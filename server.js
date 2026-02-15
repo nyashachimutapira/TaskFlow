@@ -43,10 +43,18 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// CORS
+// CORS - Allow requests from Swagger and frontend
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
+  origin: [
+    'http://localhost:5000',
+    'http://localhost:3000',
+    'https://taskflow-8gph.onrender.com',
+    'https://taskflow-8gph.onrender.com/api-docs',
+    process.env.CORS_ORIGIN || '*'
+  ],
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Rate limiting
