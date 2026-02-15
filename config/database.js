@@ -24,7 +24,12 @@ const connectDB = async () => {
     console.log(`MongoDB Connected: ${conn.connection.host}`);
     return conn;
   } catch (error) {
-    console.error(`Error: ${error.message}`);
+    console.error(`MongoDB connection failed: ${error.message}`);
+    if (error.message.includes('timed out')) {
+      console.error(
+        'Tip: If using localhost, ensure MongoDB is running. Otherwise use MongoDB Atlas and set MONGODB_URI to your Atlas connection string.'
+      );
+    }
     process.exit(1);
   }
 };
