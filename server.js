@@ -19,7 +19,6 @@ const singleTaskRoutes = require('./routes/singleTaskRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
 connectDB();
@@ -77,7 +76,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/projects', taskRoutes);
 app.use('/api/tasks', singleTaskRoutes);
+// Mount comment routes at both /api/tasks (for task-based comments) and /api/comments (for direct comment access)
 app.use('/api/tasks', commentRoutes);
+app.use('/api/comments', commentRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {
@@ -87,8 +88,5 @@ app.use('*', (req, res) => {
 // Error handling middleware
 app.use(errorHandler);
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`TaskFlow API listening on port ${PORT}`);
-  console.log(`Swagger documentation available at http://localhost:${PORT}/api-docs`);
-});
+// Export app for testing
+module.exports = app;

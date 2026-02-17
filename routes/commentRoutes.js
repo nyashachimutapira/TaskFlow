@@ -90,8 +90,9 @@ router.get('/:taskId/comments', authMiddleware, commentController.getCommentsByT
  *       200:
  *         description: Comment updated
  */
+// PUT /api/comments/{commentId}
 router.put(
-  '/comments/:commentId',
+  '/:commentId',
   authMiddleware,
   validateCommentUpdate,
   validateInput,
@@ -116,6 +117,11 @@ router.put(
  *       200:
  *         description: Comment deleted
  */
-router.delete('/comments/:commentId', authMiddleware, commentController.deleteComment);
+// DELETE /api/comments/{commentId} OR /api/tasks/{commentId}
+router.delete(
+  '/:commentId',
+  authMiddleware,
+  commentController.deleteComment
+);
 
 module.exports = router;
