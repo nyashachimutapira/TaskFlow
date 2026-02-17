@@ -17,8 +17,8 @@ const options = {
         description: 'Development server',
       },
       {
-        url: 'https://taskflow-api.herokuapp.com/api',
-        description: 'Production server',
+        url: 'https://taskflow-8gph.onrender.com/api',
+        description: 'Production server (Render)',
       },
     ],
     components: {

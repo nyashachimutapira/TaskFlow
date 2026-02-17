@@ -327,7 +327,48 @@ All validation errors return **400 Bad Request** with detailed error messages.
 - **Error Handling**: Generic error messages to prevent information disclosure
 - **Session Security**: Secure session configuration for OAuth
 
-## Team
+## Team & Individual Contributions
+
+### Bishop Nyasha (Individual Contributor - W07 Final Project Part 3)
+
+#### Contribution 1: Complete OAuth Integration
+- Implemented Google OAuth 2.0 authentication with Passport.js
+- Implemented GitHub OAuth 2.0 authentication with Passport.js
+- Configured secure session management for OAuth flows
+- Added OAuth callback handling with JWT token generation
+- Protected OAuth endpoints with configuration validation
+- Set up environment variables for both Google and GitHub OAuth credentials
+- Tested OAuth flows with proper error handling for missing credentials
+
+#### Contribution 2: Full API Implementation & Testing
+- Created and tested all CRUD endpoints for 4 collections:
+  - **Projects**: Create, Read (all/single), Update, Delete + Team member management
+  - **Tasks**: Create, Read (all/single), Update, Delete, Status updates, Task assignment
+  - **Comments**: Create, Read (all), Update, Delete
+  - **Authentication**: Register, Login, Profile management, OAuth flows
+- Implemented comprehensive validation on all POST and PUT routes using express-validator
+- Added proper HTTP status codes (201 for creation, 200 for success, 400 for validation errors, 404 for not found, 403 for unauthorized)
+- Created full test suites with 30+ unit tests covering all GET and GetAll operations
+- Verified all tests pass with proper assertions for status codes, data validation, and authorization
+
+#### Contribution 3: Enhanced Swagger Documentation
+- Expanded Swagger/OpenAPI documentation for all 4 collections
+- Documented all CRUD operations with proper request/response schemas
+- Added security schemes for Bearer Token authentication
+- Included parameter documentation for all routes
+- Added proper response descriptions and status codes
+- Verified Swagger UI is accessible and testable at `/api-docs`
+
+#### Contribution 4: Deployment Configuration
+- Configured application for Render deployment
+- Set up environment variables for production use
+- Configured CORS for production domain (https://taskflow-8gph.onrender.com)
+- Set up MongoDB Atlas connection for production database
+- Configured session security for production (secure cookies, httpOnly flags)
+- Implemented rate limiting for API protection
+- Tested deployment configuration for security best practices
+
+### Original Team Structure (Project Foundation)
 
 - **Team Member 1 (Lead)**: Project setup, authentication system, coordination
 - **Team Member 2**: Project CRUD endpoints, team member management
