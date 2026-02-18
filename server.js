@@ -20,6 +20,9 @@ const commentRoutes = require('./routes/commentRoutes');
 
 const app = express();
 
+// Trust proxy for rate limiting
+app.set('trust proxy', 1);
+
 // Connect to MongoDB
 connectDB();
 
